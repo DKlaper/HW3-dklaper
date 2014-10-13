@@ -42,7 +42,7 @@ public class Token_Type extends Annotation_Type {
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("edu.cmu.lti.f14.hw3_dklaper.typesystems.Token");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Token");
  
   /** @generated */
   final Feature casFeat_text;
@@ -51,13 +51,13 @@ public class Token_Type extends Annotation_Type {
   /** @generated */ 
   public String getText(int addr) {
         if (featOkTst && casFeat_text == null)
-      jcas.throwFeatMissing("text", "edu.cmu.lti.f14.hw3_dklaper.typesystems.Token");
+      jcas.throwFeatMissing("text", "edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Token");
     return ll_cas.ll_getStringValue(addr, casFeatCode_text);
   }
   /** @generated */    
   public void setText(int addr, String v) {
         if (featOkTst && casFeat_text == null)
-      jcas.throwFeatMissing("text", "edu.cmu.lti.f14.hw3_dklaper.typesystems.Token");
+      jcas.throwFeatMissing("text", "edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Token");
     ll_cas.ll_setStringValue(addr, casFeatCode_text, v);}
     
   
@@ -69,13 +69,13 @@ public class Token_Type extends Annotation_Type {
   /** @generated */ 
   public int getFrequency(int addr) {
         if (featOkTst && casFeat_frequency == null)
-      jcas.throwFeatMissing("frequency", "edu.cmu.lti.f14.hw3_dklaper.typesystems.Token");
+      jcas.throwFeatMissing("frequency", "edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Token");
     return ll_cas.ll_getIntValue(addr, casFeatCode_frequency);
   }
   /** @generated */    
   public void setFrequency(int addr, int v) {
         if (featOkTst && casFeat_frequency == null)
-      jcas.throwFeatMissing("frequency", "edu.cmu.lti.f14.hw3_dklaper.typesystems.Token");
+      jcas.throwFeatMissing("frequency", "edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Token");
     ll_cas.ll_setIntValue(addr, casFeatCode_frequency, v);}
     
   

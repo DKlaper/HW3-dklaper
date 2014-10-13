@@ -1,4 +1,4 @@
-package edu.cmu.lti.f14.hw3_dklaper.collectionreaders;
+package edu.cmu.lti.f14.hw3.hw3_dklaper.collectionreaders;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.jcas.JCas;
 
-import edu.cmu.lti.f14.hw3_dklaper.typesystems.Document;
+import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Document;
 
 
 public class DocumentReader 

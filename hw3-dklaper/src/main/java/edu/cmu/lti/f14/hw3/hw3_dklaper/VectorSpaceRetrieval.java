@@ -22,7 +22,7 @@
  * 3. (optional) Improve the efficiency of the program and reduce the runtime of the retrieval system
  * 
  */
-package edu.cmu.lti.f14.hw3_dklaper;
+package edu.cmu.lti.f14.hw3.hw3_dklaper;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

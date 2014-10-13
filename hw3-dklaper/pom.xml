@@ -117,4 +117,8 @@
 </plugin>
 		</plugins>
 	</build>
+	<scm>
+		<connection>scm:git:git@github.com:DKlaper/hw3-dklaper.git</connection>
+		<developerConnection>scm:git:git@github.com:DKlaper/hw3-dklaper.git</developerConnection>
+	</scm>
 </project>

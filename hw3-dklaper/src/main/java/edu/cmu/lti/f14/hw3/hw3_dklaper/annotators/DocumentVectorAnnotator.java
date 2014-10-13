@@ -1,4 +1,4 @@
-package edu.cmu.lti.f14.hw3_dklaper.annotators;
+package edu.cmu.lti.f14.hw3.hw3_dklaper.annotators;
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -8,7 +8,7 @@ import org.apache.uima.jcas.cas.IntegerArray;
 import org.apache.uima.jcas.cas.StringArray;
 import org.apache.uima.jcas.tcas.Annotation;
 
-import edu.cmu.lti.f14.hw3_dklaper.typesystems.Document;
+import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Document;
 
 public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {
 

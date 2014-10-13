@@ -1,6 +1,6 @@
 
 /* First created by JCasGen Fri Oct 11 01:58:03 EDT 2013 */
-package edu.cmu.lti.f14.hw3_dklaper.typesystems;
+package edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;

@@ -1,4 +1,4 @@
-package edu.cmu.lti.f14.hw3_dklaper.utils;
+package edu.cmu.lti.f14.hw3.hw3_dklaper.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;

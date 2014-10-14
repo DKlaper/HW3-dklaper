@@ -166,7 +166,7 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 			{
 				fwr.write(ln+"\n");
 			}
-			fwr.write(String.format("MRR=%.1f\n", mrr));
+			fwr.write(String.format("MRR=%.4f\n", mrr));
 			fwr.close();
 		} catch (IOException e) {
 			throw new UIMARuntimeException(e);
@@ -181,7 +181,7 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 	 */
 	private String getReportString(RatedSentence ratedS, int rank) {
 		assert relList.get(ratedS.getIdx()) == 1;
-		return String.format("cosine=%.1f\trank=%d\tqid=%d\trel=1\t%s", ratedS.getRating(), rank, qIdList.get(ratedS.getIdx()), origText.get(ratedS.getIdx()));
+		return String.format("cosine=%.4f\trank=%d\tqid=%d\trel=1\t%s", ratedS.getRating(), rank, qIdList.get(ratedS.getIdx()), origText.get(ratedS.getIdx()));
 	}
 
 	/**

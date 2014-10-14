@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.apache.uima.UIMARuntimeException;
@@ -196,10 +197,12 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		
 		double euc_norm = eucNorm(queryVector.values())+eucNorm(docVector.values());
 		
+		// make a copy to avoid changing the original keyset :P
+		HashSet<String> wordsInBoth = new HashSet<String>(queryVector.keySet());
 		// only need to match those that appear in both.
-		queryVector.keySet().retainAll(docVector.keySet());
+		wordsInBoth.retainAll(docVector.keySet());
 		
-		for(String matchKey : queryVector.keySet()) // scalar multiplication of vectors
+		for(String matchKey : wordsInBoth) // scalar multiplication of vectors
 		{
 			cosine_similarity += queryVector.get(matchKey)*docVector.get(matchKey);
 		}

@@ -25,7 +25,6 @@
 package edu.cmu.lti.f14.hw3.hw3_dklaper;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 

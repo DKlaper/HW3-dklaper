@@ -8,7 +8,10 @@ import org.apache.uima.jcas.JCas;
 
 import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Document;
 
-
+/**
+ * Reads each data element (=query or answer candidate) and creates a CAS for it
+ * Assumes that input cas text is tokenized with spaces
+ */
 public class DocumentReader 
 extends JCasAnnotator_ImplBase  {
 	
@@ -18,8 +21,6 @@ extends JCasAnnotator_ImplBase  {
 		
 		// reading sentence from the CAS 
 		String sLine = jcas.getDocumentText();
-
-		// TODO: make sure information from text collection are extracted correctly
 		ArrayList<String> docInfo = parseDataLine(sLine);
 		
 		//This is to make sure that parsing done properly and 
@@ -44,6 +45,13 @@ extends JCasAnnotator_ImplBase  {
 	}
 
 
+	/**
+	 * Reads a line from the input document collection file
+	 * @param line The line from the input file
+	 * @return A list of 3 strings where 1st element = query id, 
+	 * 2nd element = relevance assessment (0/1 or 99 for query) 
+	 * 3rd element = string of the query/answer
+	 */
 	public static ArrayList<String> parseDataLine(String line) {
 		ArrayList<String> docInfo;
 

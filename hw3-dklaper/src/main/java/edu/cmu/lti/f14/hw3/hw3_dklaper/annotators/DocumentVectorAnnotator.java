@@ -1,21 +1,29 @@
 package edu.cmu.lti.f14.hw3.hw3_dklaper.annotators;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
-import org.apache.uima.jcas.cas.IntegerArray;
-import org.apache.uima.jcas.cas.StringArray;
 import org.apache.uima.jcas.tcas.Annotation;
 
-import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Document;
+import edu.cmu.lti.f14.hw3.hw3_dklaper.utils.*;
+import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.*;
 
+/**
+ * Extract tokens from text to create sparse vector
+ * 
+ */
 public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {
 
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 
-		FSIterator<Annotation> iter = jcas.getAnnotationIndex().iterator();
+		// made iteration safer!
+		FSIterator<Annotation> iter = jcas.getAnnotationIndex(Document.type).iterator();
 		if (iter.isValid()) {
 			iter.moveToNext();
 			Document doc = (Document) iter.get();
@@ -23,19 +31,38 @@ public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {
 		}
 
 	}
+	
 	/**
-	 * 
-	 * @param jcas
-	 * @param doc
+	 * Creates sparse term vector
+	 * @param jcas Cas containing the tokens
+	 * @param doc The document annotation that will be enriched with the sparse document vector
 	 */
-
 	private void createTermFreqVector(JCas jcas, Document doc) {
 
 		String docText = doc.getText();
+		String[] tokens = docText.split("\\s+");
+		// use frequency map to avoid lame counting in hashmap
+		FrequencyMap<String> freqs = new FrequencyMap<String>();
 		
-		//TO DO: construct a vector of tokens and update the tokenList in CAS
+		for(String tk : tokens)
+		{
+			freqs.addOccurrence(tk);
+		}
 		
-
+		// then create token objects
+		List<Token> tokenFreqs = new LinkedList<Token>();
+		Map<String, Integer> counts = freqs.getFrequencies(); 
+		for(String type : counts.keySet())
+		{
+			Token t = new Token(jcas);
+			t.setText(type);
+			t.setFrequency(counts.get(type));
+			tokenFreqs.add(t);
+		}
+		
+		// finally set the token list
+		doc.setTokenList(Utils.fromCollectionToFSList(jcas, tokenFreqs));
+		
 	}
 
 }

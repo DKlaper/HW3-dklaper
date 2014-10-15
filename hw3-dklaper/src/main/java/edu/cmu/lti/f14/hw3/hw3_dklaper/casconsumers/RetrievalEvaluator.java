@@ -195,7 +195,7 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 			Map<String, Integer> docVector) {
 		double cosine_similarity=0.0;
 		
-		double euc_norm = eucNorm(queryVector.values())+eucNorm(docVector.values());
+		double euc_norm = eucNorm(queryVector.values())*eucNorm(docVector.values());
 		
 		// make a copy to avoid changing the original keyset :P
 		HashSet<String> wordsInBoth = new HashSet<String>(queryVector.keySet());

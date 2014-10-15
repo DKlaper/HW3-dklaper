@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.uima.UIMARuntimeException;
+import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIterator;
@@ -11,6 +13,8 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
 
 import edu.cmu.lti.f14.hw3.hw3_dklaper.utils.*;
+import edu.cmu.lti.f14.hw3.hw3_dklaper.annotators.textnormalizations.Tokenizer;
+import edu.cmu.lti.f14.hw3.hw3_dklaper.annotators.textnormalizations.TokenizerFactory;
 import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.*;
 
 /**
@@ -19,6 +23,18 @@ import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.*;
  */
 public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {
 
+	private Tokenizer tokenizer; 
+	
+	@Override
+	public void initialize(UimaContext aUimaContext) {
+		TokenizerFactory tokfac = new TokenizerFactory();
+		try {
+			tokenizer = tokfac.getTokenizer((String)aUimaContext.getConfigParameterValue("TokenizerClass"), (String[])aUimaContext.getConfigParameterValue("NormalizerClasses"));
+		} catch (Exception e) {
+			throw new UIMARuntimeException(e);
+		}
+	}
+	
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 
@@ -40,7 +56,8 @@ public class DocumentVectorAnnotator extends JCasAnnotator_ImplBase {
 	private void createTermFreqVector(JCas jcas, Document doc) {
 
 		String docText = doc.getText();
-		String[] tokens = docText.split("\\s+");
+		// tokenizer performs tokenization and normalization!
+		String[] tokens = tokenizer.getNormalizedTokenization(docText);
 		// use frequency map to avoid lame counting in hashmap
 		FrequencyMap<String> freqs = new FrequencyMap<String>();
 		

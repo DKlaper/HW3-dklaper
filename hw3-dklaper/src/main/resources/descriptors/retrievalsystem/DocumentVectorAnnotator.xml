@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>
@@ -8,8 +9,39 @@
     <description/>
     <version>1.0</version>
     <vendor/>
-    <configurationParameters/>
-    <configurationParameterSettings/>
+    <configurationParameters>
+      <configurationParameter>
+        <name>TokenizerClass</name>
+        <description>Qualified Classname of the tokenizer</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>NormalizerClasses</name>
+        <description>Qualified name of all TextNormalizers </description>
+        <type>String</type>
+        <multiValued>true</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>TokenizerClass</name>
+        <value>
+          <string>edu.cmu.lti.f14.hw3.hw3_dklaper.annotators.textnormalizations.StanfordTokenizer</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>NormalizerClasses</name>
+        <value>
+          <array>
+            <string>edu.cmu.lti.f14.hw3.hw3_dklaper.annotators.textnormalizations.StanfordStemmer</string>
+            <string>edu.cmu.lti.f14.hw3.hw3_dklaper.annotators.textnormalizations.CaseFoldNormalizer</string>
+          </array>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
     <typeSystemDescription>
       <imports>
 		<import location="../typesystems/VectorSpaceTypes.xml"/>

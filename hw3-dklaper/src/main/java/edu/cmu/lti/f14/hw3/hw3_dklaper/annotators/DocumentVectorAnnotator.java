@@ -13,8 +13,7 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
 
 import edu.cmu.lti.f14.hw3.hw3_dklaper.utils.*;
-import edu.cmu.lti.f14.hw3.hw3_dklaper.annotators.textnormalizations.Tokenizer;
-import edu.cmu.lti.f14.hw3.hw3_dklaper.annotators.textnormalizations.TokenizerFactory;
+import edu.cmu.lti.f14.hw3.hw3_dklaper.annotators.textnormalizations.*;
 import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.*;
 
 /**

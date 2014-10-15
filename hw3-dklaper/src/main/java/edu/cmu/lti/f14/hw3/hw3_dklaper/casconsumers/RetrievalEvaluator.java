@@ -21,6 +21,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
 import org.apache.uima.util.ProcessTrace;
 
+import edu.cmu.lti.f14.hw3.hw3_dklaper.casconsumers.similarity.*;
 import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Document;
 import edu.cmu.lti.f14.hw3.hw3_dklaper.typesystems.Token;
 import edu.cmu.lti.f14.hw3.hw3_dklaper.utils.RatedSentence;
@@ -49,6 +50,9 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 	/** Name of the outputFile (read from descriptor param) **/
 	public String outputFile;
 	
+	/** The similarity measure to be used **/
+	private SimilarityMeasure simMeasure;
+	
 	@Override
 	public void initialize() throws ResourceInitializationException {
 
@@ -58,6 +62,8 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		origText = new ArrayList<String>();
 		tokenFreq = new ArrayList<HashMap<String,Integer>>();
 		mapidx = new HashMap<Integer, Integer>();
+		
+		simMeasure = new CosineMeasure();
 
 	}
 
@@ -132,7 +138,7 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 			}
 			// calculate cosine similarity and add to answers
 			int queryidx = mapidx.get(qIdList.get(idx));
-			double cos = computeCosineSimilarity(tokenFreq.get(queryidx), tokenFreq.get(idx));
+			double cos = simMeasure.computeSimilarity(tokenFreq.get(queryidx), tokenFreq.get(idx));
 			RatedSentence sen = new RatedSentence(idx, cos, relList.get(idx));
 			queryAnswers.get(qIdList.get(idx)).add(sen);
 		}
@@ -183,47 +189,6 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 	private String getReportString(RatedSentence ratedS, int rank) {
 		assert relList.get(ratedS.getIdx()) == 1;
 		return String.format("cosine=%.4f\trank=%d\tqid=%d\trel=1\t%s", ratedS.getRating(), rank, qIdList.get(ratedS.getIdx()), origText.get(ratedS.getIdx()));
-	}
-
-	/**
-	 * Computes cosine similarity between query and document
-	 * @param queryVector sparse word vector of query
-	 * @param docVector sparse word vector of document
-	 * @return Cosine similarity
-	 */
-	private double computeCosineSimilarity(Map<String, Integer> queryVector,
-			Map<String, Integer> docVector) {
-		double cosine_similarity=0.0;
-		
-		double euc_norm = eucNorm(queryVector.values())*eucNorm(docVector.values());
-		
-		// make a copy to avoid changing the original keyset :P
-		HashSet<String> wordsInBoth = new HashSet<String>(queryVector.keySet());
-		// only need to match those that appear in both.
-		wordsInBoth.retainAll(docVector.keySet());
-		
-		for(String matchKey : wordsInBoth) // scalar multiplication of vectors
-		{
-			cosine_similarity += queryVector.get(matchKey)*docVector.get(matchKey);
-		}
-
-		return cosine_similarity/euc_norm;
-	}
-	
-	/**
-	 * calculates the euclidean norm of a vector
-	 * @param vec Vector for which norm is calculated
-	 * @return Euclidean Norm of vec
-	 */
-	private double eucNorm(Iterable<Integer> vec)
-	{
-		double res = 0.0;
-		for(Integer el : vec)
-		{
-			res += Math.pow(el, 2);
-		}
-		
-		return Math.sqrt(res);
 	}
 
 	/**

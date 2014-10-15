@@ -133,7 +133,7 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 			// calculate cosine similarity and add to answers
 			int queryidx = mapidx.get(qIdList.get(idx));
 			double cos = computeCosineSimilarity(tokenFreq.get(queryidx), tokenFreq.get(idx));
-			RatedSentence sen = new RatedSentence(idx, cos);
+			RatedSentence sen = new RatedSentence(idx, cos, relList.get(idx));
 			queryAnswers.get(qIdList.get(idx)).add(sen);
 		}
 		
@@ -162,7 +162,7 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 	private void writeReport(ArrayList<String> lines, double mrr)
 	{
 		try {
-			FileWriter fwr = new FileWriter(outputFile);
+			FileWriter fwr = new FileWriter(outputFile, false);
 			for(String ln : lines)
 			{
 				fwr.write(ln+"\n");

@@ -30,7 +30,7 @@ public class CosineMeasure implements SimilarityMeasure {
 	 *            Vector for which norm is calculated
 	 * @return Euclidean Norm of vec
 	 */
-	private double eucNorm(Iterable<Integer> vec) {
+	public static double eucNorm(Iterable<Integer> vec) {
 		double res = 0.0;
 		for (Integer el : vec) {
 			res += Math.pow(el, 2);

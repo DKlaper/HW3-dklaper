@@ -17,12 +17,25 @@
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+    <configurationParameter>
+        <name>SimilarityMeasure</name>
+        <description>Qualified class name of the similarity measure to be used</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
         <name>OutputFile</name>
         <value>
           <string>report.txt</string>
+        </value>
+      </nameValuePair>
+    <nameValuePair>
+        <name>SimilarityMeasure</name>
+        <value>
+          <string>edu.cmu.lti.f14.hw3.hw3_dklaper.casconsumers.similarity.CosineMeasure</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 import org.apache.uima.UIMARuntimeException;
 import org.apache.uima.cas.CAS;
@@ -62,8 +60,12 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		origText = new ArrayList<String>();
 		tokenFreq = new ArrayList<HashMap<String,Integer>>();
 		mapidx = new HashMap<Integer, Integer>();
-		
-		simMeasure = new CosineMeasure();
+		SimilarityMeasureFactory simfac = new SimilarityMeasureFactory();
+		try {
+			simMeasure = simfac.getSimilarityMeasure((String)getConfigParameterValue("SimilarityMeasure"));
+		} catch (Exception e) {
+			throw new UIMARuntimeException(e);
+		} 
 
 	}
 

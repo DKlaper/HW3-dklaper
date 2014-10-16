@@ -19,7 +19,7 @@
       </configurationParameter>
       <configurationParameter>
         <name>NormalizerClasses</name>
-        <description>Qualified name of all TextNormalizers </description>
+        <description>Qualified name of all TextNormalizers</description>
         <type>String</type>
         <multiValued>true</multiValued>
         <mandatory>false</mandatory>

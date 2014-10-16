@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
+import org.apache.commons.math3.stat.inference.TTest;
 import org.apache.uima.UIMARuntimeException;
 import org.apache.uima.cas.CAS;
 import org.apache.uima.cas.CASException;
@@ -146,6 +147,9 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		}
 		
 		
+		// take ranks for ttest
+		double[] ranks = new double[queryAnswers.size()];
+		int i = 0;
 		// compute the rank and mrr of retrieved sentences for each query
 		double metric_mrr = 0.0;
 		// make sure its sorted by queryid
@@ -158,6 +162,7 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 			ArrayList<RatedSentence> candidates = queryAnswers.get(queryidx);
 			Collections.sort(candidates);
 			int rank = computeRank(candidates); 
+			ranks[i++] = rank;
 			reportLines.add(getReportString(candidates.get(rank-1), rank));
 			// avg contribution across each query
 			metric_mrr += (1/(double)rank)/queryAnswers.size();
@@ -165,6 +170,13 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		
 		writeReport(reportLines, metric_mrr);
 		System.out.println(" (MRR) Mean Reciprocal Rank ::" + metric_mrr);
+		// hacky TTest
+		TTest tTest = new TTest();
+		System.out.println(" Ranks: "+ Arrays.toString(ranks));
+		// ranks from cosine without preprocessing
+		double[] cosineBaseRanks = new double[] {2.0, 2.0, 3.0, 2.0, 3.0, 2.0, 3.0, 2.0, 2.0, 1.0, 4.0, 3.0, 3.0, 2.0, 3.0, 3.0, 3.0, 2.0, 3.0, 2.0};
+		double p = tTest.pairedTTest(ranks, cosineBaseRanks);
+		System.out.println(" (p-value) T-test signficance 0H :: " + p);
 	}
 	
 	private void writeReport(ArrayList<String> lines, double mrr)

@@ -35,7 +35,7 @@
     <nameValuePair>
         <name>SimilarityMeasure</name>
         <value>
-          <string>edu.cmu.lti.f14.hw3.hw3_dklaper.casconsumers.similarity.CosineMeasure</string>
+          <string>edu.cmu.lti.f14.hw3.hw3_dklaper.casconsumers.similarity.DiceCoefficientMeasure</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
